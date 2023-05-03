@@ -27,7 +27,7 @@ module.exports = {
   custom_assertions_path: '',
 
   // See https://nightwatchjs.org/guide/extending-nightwatch/adding-plugins.html
-  plugins: [],
+  plugins: ['@nightwatch/apitesting'],
   
   // See https://nightwatchjs.org/guide/concepts/test-globals.html#external-test-globals
   globals_path : '',
@@ -345,5 +345,16 @@ module.exports = {
         }
       }
     }
+  },
+
+  api_testing: {
+    start_session: false,
+    webdriver: {
+      start_process: false,
+    }
+  },
+  
+  "@nightwatch/apitesting" : {
+    "log_responses": true
   }
 };

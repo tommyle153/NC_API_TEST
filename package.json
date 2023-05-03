@@ -10,6 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@nightwatch/apitesting": "^0.2.2",
+    "chromedriver": "^112.0.1",
+    "geckodriver": "^3.2.0",
     "nightwatch": "^2.6.20"
   }
 }
