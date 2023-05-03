@@ -60,7 +60,12 @@ module.exports = {
       }
     },
 
-    
+    api_testing: {
+      start_session: false,
+      webdriver: {
+        start_process: false,
+      }
+    },
 
     firefox: {
       desiredCapabilities : {
@@ -347,13 +352,6 @@ module.exports = {
     }
   },
 
-  api_testing: {
-    start_session: false,
-    webdriver: {
-      start_process: false,
-    }
-  },
-  
   "@nightwatch/apitesting" : {
     "log_responses": true
   }
