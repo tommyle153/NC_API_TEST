@@ -19,11 +19,12 @@ I used a hard-coded array containing 3 users with the following demographic:
 * ? password complexity
 
 Majority of test plan involves happy path testing all 3 actionType {CountByGender, CountByCountry, CountPasswordComplexity} with different valid inputs for optional parameter top, where top can be:
+* unspecified due to being an optional parameter
 * 0
 * positive integer
 * integer greater than user list array length
 
 Additional un-happy path  testing involved sending requests with invalid parameter:
 * invalid actionType
-* top = {negative integer, non-integer such as letter or special character}
+* top = {negative integer, non-integer such as letter or special character or float}
 * empty user list
