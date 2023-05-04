@@ -1,9 +1,9 @@
-Purpose of this file is to automate functional testing of API service https://census-toy.nceng.net/prod/toy-census
-
 * Language: JavaScript
 * Framework: Nightwatch.js
 * Reasoning: I elected to use this framework as it supports BDD test syntax for easier readability.
 Package.json should prevent any module dependency issues and allow the tests to run out the box.
+Results can be viewed locally in path: tests_output\nightwatch-html-report\index.html
+* Disclaimer: I moved the unstable test scenarios to the end of the test file due to bug reported at bottom of README.md. This is to prevent test suite from failing early and skipping stable test cases
 
 Set-up:
 1. Install git
@@ -40,14 +40,13 @@ Bug: API response inconsistently off by 1
 Description: When sending a valid payload to API, the response would sometimes be off by 1 value.
 Attached are videos demonstrating issue using external application Postman
 * API_top_1.mp4: given array of 1 user and top = 1, action type CountPasswordComplexity should return 1 password. Recording shows expected behavior until 8th API request, returned (top - 1) = 1-1 = 0, empty array
-* API_top_2.mp4: given array of 3 users (2 female, 1 male) and top = 2, action type CountByGender should return genders female and male. Recording shows expected behavior until 6th API request, returned (top - 1) = 2-1 = array with 1 gender
-* API_top_3.mp4: given array of 3 users belong to a different nationality (US, FI, and GB) and top = 3, action type CountByCountry should return all 3 nationalities. Recording shows expected behavior until 10th API request, returned (top - 1) = 3-1 = array with 2 nationality
+* API_top_2.mp4: given array of 3 users belong to a different nationality (US, FI, and GB) and top = 2, action type CountByCountry should return 2 nationalities. Recording API returns either 1, 2, or 3 nationalities in response array
 
 Steps to reproduce:
 1. Send a POST request to https://census-toy.nceng.net/prod/toy-census
-2. Payload should contain at least 1 user, a valid action type {CountByGender, CountByCountry, CountPasswordComplexity}, and optional parameter "top" is set to value: 1
+2. Payload should contain at least 3 user with different nationalities, action type = CountByCountry, and optional parameter "top" is set to value: 2
 3. Repeat call 10-20 times
 
-Actual result: some of the call returns are empty (API_inconsistent_result.png)
+Actual result: some of the call returns are off by 1, either returning 1 nationality or 3 nationality
 
-Expected result: all calls return a valid response (API_expected_result.png)
+Expected result: all calls return 2 nationalities

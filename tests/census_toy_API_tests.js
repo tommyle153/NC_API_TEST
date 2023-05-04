@@ -177,25 +177,6 @@ describe("testing happy paths", () => {
         expect(genderArray.includes('male')).to.be.equal(true);
       });
   });
-  it("CountByGender returns majority gender of user list when top equals 1", async function ({
-    supertest,
-  }) {
-    await supertest
-      .request("https://census-toy.nceng.net")
-      .post("/prod/toy-census")
-      .send({
-        actionType: "CountByGender",
-        top: 1,
-        users,
-      })
-      .expect(200)
-      .expect("Content-Type", /json/)
-      .then(function (response) {
-        let parsedResponse = JSON.parse(response.text);
-        expect(parsedResponse[0].name).to.be.equal("female");
-        expect(parsedResponse[0].value).to.be.equal(2);
-      });
-  });
   it("CountByGender returns all genders when top equals 0", async function ({
     supertest,
   }) {
@@ -267,25 +248,6 @@ describe("testing happy paths", () => {
         expect(nationalityArray.includes('AU')).to.be.equal(true);
       });
   });
-  it("CountByCountry returns majority user nationality when top equals 1", async function ({
-    supertest,
-  }) {
-    await supertest
-      .request("https://census-toy.nceng.net")
-      .post("/prod/toy-census")
-      .send({
-        actionType: "CountByCountry",
-        top: 1,
-        users,
-      })
-      .expect(200)
-      .expect("Content-Type", /json/)
-      .then(function (response) {
-        let parsedResponse = JSON.parse(response.text);
-        expect(parsedResponse[0].name).to.be.equal("US");
-        expect(parsedResponse[0].value).to.be.equal(2);
-      });
-  });
   it("CountByCountry returns all nationalities when top equals 0", async function ({
     supertest,
   }) {
@@ -354,24 +316,6 @@ describe("testing happy paths", () => {
           passwordArray.push(parsedResponse[i].name);
         }
         expect(passwordArray.length === users.length).to.be.equal(true);
-      });
-  });
-  it("CountPasswordComplexity returns most complex password when top equals 1", async function ({
-    supertest,
-  }) {
-    await supertest
-      .request("https://census-toy.nceng.net")
-      .post("/prod/toy-census")
-      .send({
-        actionType: "CountPasswordComplexity",
-        top: 1,
-        users,
-      })
-      .expect(200)
-      .expect("Content-Type", /json/)
-      .then(function (response) {
-        let parsedResponse = JSON.parse(response.text);
-        expect(parsedResponse[0].name).to.be.equal("increasePwdComplexity1!?");
       });
   });
   it("CountPasswordComplexity returns all passwords when top equals 0", async function ({
@@ -533,6 +477,65 @@ describe("testing un-happy paths", () => {
       .expect("Content-Type", /json/)
       .then(function (response) {
         expect(response.text).to.be.equal("");
+      });
+  });
+});
+
+describe("unstable tests", () => {
+  it("CountByGender returns majority gender of user list when top equals 1", async function ({
+    supertest,
+  }) {
+    await supertest
+      .request("https://census-toy.nceng.net")
+      .post("/prod/toy-census")
+      .send({
+        actionType: "CountByGender",
+        top: 1,
+        users,
+      })
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .then(function (response) {
+        let parsedResponse = JSON.parse(response.text);
+        expect(parsedResponse[0].name).to.be.equal("female");
+        expect(parsedResponse[0].value).to.be.equal(2);
+      });
+  });
+  it("CountByCountry returns majority user nationality when top equals 1", async function ({
+    supertest,
+  }) {
+    await supertest
+      .request("https://census-toy.nceng.net")
+      .post("/prod/toy-census")
+      .send({
+        actionType: "CountByCountry",
+        top: 1,
+        users,
+      })
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .then(function (response) {
+        let parsedResponse = JSON.parse(response.text);
+        expect(parsedResponse[0].name).to.be.equal("US");
+        expect(parsedResponse[0].value).to.be.equal(2);
+      });
+  });
+  it("CountPasswordComplexity returns most complex password when top equals 1", async function ({
+    supertest,
+  }) {
+    await supertest
+      .request("https://census-toy.nceng.net")
+      .post("/prod/toy-census")
+      .send({
+        actionType: "CountPasswordComplexity",
+        top: 1,
+        users,
+      })
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .then(function (response) {
+        let parsedResponse = JSON.parse(response.text);
+        expect(parsedResponse[0].name).to.be.equal("increasePwdComplexity1!?");
       });
   });
 });
