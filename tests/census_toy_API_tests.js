@@ -152,281 +152,299 @@ const users = [
     nat: "US",
   },
 ];
+const emptyUsers = [];
 describe("testing happy paths", () => {
-  // it("CountByGender returns all genders when top parameter is not specified", async function ({
-  //   supertest,
-  // }) {
-  //   await supertest
-  //     .request("https://census-toy.nceng.net")
-  //     .post("/prod/toy-census")
-  //     .send({
-  //       actionType: "CountByGender",
-  //       users,
-  //     })
-  //     .expect(200)
-  //     .expect("Content-Type", /json/)
-  //     .then(function (response) {
-  //       let parsedResponse = JSON.parse(response.text);
-  //       let genderArray = [];
-  //       for (let i = 0; i < parsedResponse.length; i++){
-  //         console.log(`parsedResponse element gender at ${i}: ${parsedResponse[i].name}`)
-  //         genderArray.push(parsedResponse[i].name);
-  //       }
-  //       expect(genderArray.includes('female')).to.be.equal(true);
-  //       expect(genderArray.includes('male')).to.be.equal(true);
-  //     });
-  // });
-  // it("CountByGender returns majority gender of user list when top equals 1", async function ({
-  //   supertest,
-  // }) {
-  //   await supertest
-  //     .request("https://census-toy.nceng.net")
-  //     .post("/prod/toy-census")
-  //     .send({
-  //       actionType: "CountByGender",
-  //       top: 1,
-  //       users,
-  //     })
-  //     .expect(200)
-  //     .expect("Content-Type", /json/)
-  //     .then(function (response) {
-  //       let parsedResponse = JSON.parse(response.text);
-  //       expect(parsedResponse[0].name).to.be.equal("female");
-  //       expect(parsedResponse[0].value).to.be.equal(2);
-  //     });
-  // });
-  // it("CountByGender returns all genders when top equals 0", async function ({
-  //   supertest,
-  // }) {
-  //   await supertest
-  //     .request("https://census-toy.nceng.net")
-  //     .post("/prod/toy-census")
-  //     .send({
-  //       actionType: "CountByGender",
-  //       top: 0,
-  //       users,
-  //     })
-  //     .expect(200)
-  //     .expect("Content-Type", /json/)
-  //     .then(function (response) {
-  //       let parsedResponse = JSON.parse(response.text);
-  //       let genderArray = [];
-  //       for (let i = 0; i < parsedResponse.length; i++){
-  //         console.log(`parsedResponse element gender at ${i}: ${parsedResponse[i].name}`)
-  //         genderArray.push(parsedResponse[i].name);
-  //       }
-  //       expect(genderArray.includes('female')).to.be.equal(true);
-  //       expect(genderArray.includes('male')).to.be.equal(true);
-  //     });
-  // });
-  // it("CountByGender returns all genders when value of top is greater than amount of users", async function ({
-  //   supertest,
-  // }) {
-  //   await supertest
-  //     .request("https://census-toy.nceng.net")
-  //     .post("/prod/toy-census")
-  //     .send({
-  //       actionType: "CountByGender",
-  //       top: users.length + 1,
-  //       users,
-  //     })
-  //     .expect(200)
-  //     .expect("Content-Type", /json/)
-  //     .then(function (response) {
-  //       let parsedResponse = JSON.parse(response.text);
-  //       let genderArray = [];
-  //       for (let i = 0; i < parsedResponse.length; i++){
-  //         console.log(`parsedResponse element gender at ${i}: ${parsedResponse[i].name}`)
-  //         genderArray.push(parsedResponse[i].name);
-  //       }
-  //       expect(genderArray.includes('female')).to.be.equal(true);
-  //       expect(genderArray.includes('male')).to.be.equal(true);
-  //     });
-  // });
-  // it("CountByCountry returns all nationalities when top parameter is not specified", async function ({
-  //   supertest,
-  // }) {
-  //   await supertest
-  //     .request("https://census-toy.nceng.net")
-  //     .post("/prod/toy-census")
-  //     .send({
-  //       actionType: "CountByCountry",
-  //       top: 0,
-  //       users,
-  //     })
-  //     .expect(200)
-  //     .expect("Content-Type", /json/)
-  //     .then(function (response) {
-  //       let parsedResponse = JSON.parse(response.text);
-  //       let nationalityArray = [];
-  //       for (let i = 0; i < parsedResponse.length; i++){
-  //         nationalityArray.push(parsedResponse[i].name);
-  //       }
-  //       expect(nationalityArray.includes('US')).to.be.equal(true);
-  //       expect(nationalityArray.includes('AU')).to.be.equal(true);
-  //     });
-  // });
-  // it("CountByCountry returns majority user nationality when top equals 1", async function ({
-  //   supertest,
-  // }) {
-  //   await supertest
-  //     .request("https://census-toy.nceng.net")
-  //     .post("/prod/toy-census")
-  //     .send({
-  //       actionType: "CountByCountry",
-  //       top: 1,
-  //       users,
-  //     })
-  //     .expect(200)
-  //     .expect("Content-Type", /json/)
-  //     .then(function (response) {
-  //       let parsedResponse = JSON.parse(response.text);
-  //       expect(parsedResponse[0].name).to.be.equal("US");
-  //       expect(parsedResponse[0].value).to.be.equal(2);
-  //     });
-  // });
-  // it("CountByCountry returns all nationalities when top equals 0", async function ({
-  //   supertest,
-  // }) {
-  //   await supertest
-  //     .request("https://census-toy.nceng.net")
-  //     .post("/prod/toy-census")
-  //     .send({
-  //       actionType: "CountByCountry",
-  //       top: 0,
-  //       users,
-  //     })
-  //     .expect(200)
-  //     .expect("Content-Type", /json/)
-  //     .then(function (response) {
-  //       let parsedResponse = JSON.parse(response.text);
-  //       let nationalityArray = [];
-  //       for (let i = 0; i < parsedResponse.length; i++){
-  //         nationalityArray.push(parsedResponse[i].name);
-  //       }
-  //       expect(nationalityArray.includes('US')).to.be.equal(true);
-  //       expect(nationalityArray.includes('AU')).to.be.equal(true);
-  //     });
-  // });
-  // it("CountByCountry returns all nationalities when value of top is greater than amount of users", async function ({
-  //   supertest,
-  // }) {
-  //   await supertest
-  //     .request("https://census-toy.nceng.net")
-  //     .post("/prod/toy-census")
-  //     .send({
-  //       actionType: "CountByCountry",
-  //       top: users.length + 1,
-  //       users,
-  //     })
-  //     .expect(200)
-  //     .expect("Content-Type", /json/)
-  //     .then(function (response) {
-  //       let parsedResponse = JSON.parse(response.text);
-  //       let nationalityArray = [];
-  //       for (let i = 0; i < parsedResponse.length; i++){
-  //         nationalityArray.push(parsedResponse[i].name);
-  //       }
-  //       expect(nationalityArray.includes('US')).to.be.equal(true);
-  //       expect(nationalityArray.includes('AU')).to.be.equal(true);
-  //     });
-  // });
-  // it("CountPasswordComplexity returns all passwords when top parameter is not specified", async function ({
-  //   supertest,
-  // }) {
-  //   await supertest
-  //     .request("https://census-toy.nceng.net")
-  //     .post("/prod/toy-census")
-  //     .send({
-  //       actionType: "CountPasswordComplexity",
-  //       users,
-  //     })
-  //     .expect(200)
-  //     .expect("Content-Type", /json/)
-  //     .then(function (response) {
-  //       let parsedResponse = JSON.parse(response.text);
-  //       console.log(`parsed response obj: ${JSON.stringify(parsedResponse, null, 4)}`);
-  //       console.log(`parsedResponse[0]: ${JSON.stringify(parsedResponse)}`);
-  //       console.log(`parsedResponse[1]: ${JSON.stringify(parsedResponse[0])}`);
-  //       let passwordArray = [];
-  //       for (let i = 0; i < parsedResponse.length; i++){
-  //         passwordArray.push(parsedResponse[i].name);
-  //       }
-  //       expect(passwordArray.length === users.length).to.be.equal(true);
-  //     });
-  // });
-  // it("CountPasswordComplexity returns most complex password when top equals 1", async function ({
-  //   supertest,
-  // }) {
-  //   await supertest
-  //     .request("https://census-toy.nceng.net")
-  //     .post("/prod/toy-census")
-  //     .send({
-  //       actionType: "CountPasswordComplexity",
-  //       top: 1,
-  //       users,
-  //     })
-  //     .expect(200)
-  //     .expect("Content-Type", /json/)
-  //     .then(function (response) {
-  //       let parsedResponse = JSON.parse(response.text);
-  //       expect(parsedResponse[0].name).to.be.equal("increasePwdComplexity1!?");
-  //     });
-  // });
-  // it("CountPasswordComplexity returns all passwords when top equals 0", async function ({
-  //   supertest,
-  // }) {
-  //   await supertest
-  //     .request("https://census-toy.nceng.net")
-  //     .post("/prod/toy-census")
-  //     .send({
-  //       actionType: "CountPasswordComplexity",
-  //       top: 0,
-  //       users,
-  //     })
-  //     .expect(200)
-  //     .expect("Content-Type", /json/)
-  //     .then(function (response) {
-  //       let parsedResponse = JSON.parse(response.text);
-  //       console.log(`parsed response obj: ${JSON.stringify(parsedResponse, null, 4)}`);
-  //       console.log(`parsedResponse[0]: ${JSON.stringify(parsedResponse)}`);
-  //       console.log(`parsedResponse[1]: ${JSON.stringify(parsedResponse[0])}`);
-  //       let passwordArray = [];
-  //       for (let i = 0; i < parsedResponse.length; i++){
-  //         passwordArray.push(parsedResponse[i].name);
-  //       }
-  //       expect(passwordArray.length === users.length).to.be.equal(true);
-  //     });
-  // });
-  // it("CountPasswordComplexity returns all passwords when value of top is greater than amount of users", async function ({
-  //   supertest,
-  // }) {
-  //   await supertest
-  //     .request("https://census-toy.nceng.net")
-  //     .post("/prod/toy-census")
-  //     .send({
-  //       actionType: "CountPasswordComplexity",
-  //       top: users.length + 1,
-  //       users,
-  //     })
-  //     .expect(200)
-  //     .expect("Content-Type", /json/)
-  //     .then(function (response) {
-  //       let parsedResponse = JSON.parse(response.text);
-  //       console.log(`parsed response obj: ${JSON.stringify(parsedResponse, null, 4)}`);
-  //       console.log(`parsedResponse[0]: ${JSON.stringify(parsedResponse)}`);
-  //       console.log(`parsedResponse[1]: ${JSON.stringify(parsedResponse[0])}`);
-  //       let passwordArray = [];
-  //       for (let i = 0; i < parsedResponse.length; i++){
-  //         passwordArray.push(parsedResponse[i].name);
-  //       }
-  //       expect(passwordArray.length === users.length).to.be.equal(true);
-  //     });
-  // });
+  it("CountByGender returns all genders when top parameter is not specified", async function ({
+    supertest,
+  }) {
+    await supertest
+      .request("https://census-toy.nceng.net")
+      .post("/prod/toy-census")
+      .send({
+        actionType: "CountByGender",
+        users,
+      })
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .then(function (response) {
+        let parsedResponse = JSON.parse(response.text);
+        let genderArray = [];
+        for (let i = 0; i < parsedResponse.length; i++){
+          console.log(`parsedResponse element gender at ${i}: ${parsedResponse[i].name}`)
+          genderArray.push(parsedResponse[i].name);
+        }
+        expect(genderArray.includes('female')).to.be.equal(true);
+        expect(genderArray.includes('male')).to.be.equal(true);
+      });
+  });
+  it("CountByGender returns majority gender of user list when top equals 1", async function ({
+    supertest,
+  }) {
+    await supertest
+      .request("https://census-toy.nceng.net")
+      .post("/prod/toy-census")
+      .send({
+        actionType: "CountByGender",
+        top: 1,
+        users,
+      })
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .then(function (response) {
+        let parsedResponse = JSON.parse(response.text);
+        expect(parsedResponse[0].name).to.be.equal("female");
+        expect(parsedResponse[0].value).to.be.equal(2);
+      });
+  });
+  it("CountByGender returns all genders when top equals 0", async function ({
+    supertest,
+  }) {
+    await supertest
+      .request("https://census-toy.nceng.net")
+      .post("/prod/toy-census")
+      .send({
+        actionType: "CountByGender",
+        top: 0,
+        users,
+      })
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .then(function (response) {
+        let parsedResponse = JSON.parse(response.text);
+        let genderArray = [];
+        for (let i = 0; i < parsedResponse.length; i++){
+          console.log(`parsedResponse element gender at ${i}: ${parsedResponse[i].name}`)
+          genderArray.push(parsedResponse[i].name);
+        }
+        expect(genderArray.includes('female')).to.be.equal(true);
+        expect(genderArray.includes('male')).to.be.equal(true);
+      });
+  });
+  it("CountByGender returns all genders when value of top is greater than amount of users", async function ({
+    supertest,
+  }) {
+    await supertest
+      .request("https://census-toy.nceng.net")
+      .post("/prod/toy-census")
+      .send({
+        actionType: "CountByGender",
+        top: users.length + 1,
+        users,
+      })
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .then(function (response) {
+        let parsedResponse = JSON.parse(response.text);
+        let genderArray = [];
+        for (let i = 0; i < parsedResponse.length; i++){
+          console.log(`parsedResponse element gender at ${i}: ${parsedResponse[i].name}`)
+          genderArray.push(parsedResponse[i].name);
+        }
+        expect(genderArray.includes('female')).to.be.equal(true);
+        expect(genderArray.includes('male')).to.be.equal(true);
+      });
+  });
+  it("CountByCountry returns all nationalities when top parameter is not specified", async function ({
+    supertest,
+  }) {
+    await supertest
+      .request("https://census-toy.nceng.net")
+      .post("/prod/toy-census")
+      .send({
+        actionType: "CountByCountry",
+        top: 0,
+        users,
+      })
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .then(function (response) {
+        let parsedResponse = JSON.parse(response.text);
+        let nationalityArray = [];
+        for (let i = 0; i < parsedResponse.length; i++){
+          nationalityArray.push(parsedResponse[i].name);
+        }
+        expect(nationalityArray.includes('US')).to.be.equal(true);
+        expect(nationalityArray.includes('AU')).to.be.equal(true);
+      });
+  });
+  it("CountByCountry returns majority user nationality when top equals 1", async function ({
+    supertest,
+  }) {
+    await supertest
+      .request("https://census-toy.nceng.net")
+      .post("/prod/toy-census")
+      .send({
+        actionType: "CountByCountry",
+        top: 1,
+        users,
+      })
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .then(function (response) {
+        let parsedResponse = JSON.parse(response.text);
+        expect(parsedResponse[0].name).to.be.equal("US");
+        expect(parsedResponse[0].value).to.be.equal(2);
+      });
+  });
+  it("CountByCountry returns all nationalities when top equals 0", async function ({
+    supertest,
+  }) {
+    await supertest
+      .request("https://census-toy.nceng.net")
+      .post("/prod/toy-census")
+      .send({
+        actionType: "CountByCountry",
+        top: 0,
+        users,
+      })
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .then(function (response) {
+        let parsedResponse = JSON.parse(response.text);
+        let nationalityArray = [];
+        for (let i = 0; i < parsedResponse.length; i++){
+          nationalityArray.push(parsedResponse[i].name);
+        }
+        expect(nationalityArray.includes('US')).to.be.equal(true);
+        expect(nationalityArray.includes('AU')).to.be.equal(true);
+      });
+  });
+  it("CountByCountry returns all nationalities when value of top is greater than amount of users", async function ({
+    supertest,
+  }) {
+    await supertest
+      .request("https://census-toy.nceng.net")
+      .post("/prod/toy-census")
+      .send({
+        actionType: "CountByCountry",
+        top: users.length + 1,
+        users,
+      })
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .then(function (response) {
+        let parsedResponse = JSON.parse(response.text);
+        let nationalityArray = [];
+        for (let i = 0; i < parsedResponse.length; i++){
+          nationalityArray.push(parsedResponse[i].name);
+        }
+        expect(nationalityArray.includes('US')).to.be.equal(true);
+        expect(nationalityArray.includes('AU')).to.be.equal(true);
+      });
+  });
+  it("CountPasswordComplexity returns all passwords when top parameter is not specified", async function ({
+    supertest,
+  }) {
+    await supertest
+      .request("https://census-toy.nceng.net")
+      .post("/prod/toy-census")
+      .send({
+        actionType: "CountPasswordComplexity",
+        users,
+      })
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .then(function (response) {
+        let parsedResponse = JSON.parse(response.text);
+        console.log(`parsed response obj: ${JSON.stringify(parsedResponse, null, 4)}`);
+        console.log(`parsedResponse[0]: ${JSON.stringify(parsedResponse)}`);
+        console.log(`parsedResponse[1]: ${JSON.stringify(parsedResponse[0])}`);
+        let passwordArray = [];
+        for (let i = 0; i < parsedResponse.length; i++){
+          passwordArray.push(parsedResponse[i].name);
+        }
+        expect(passwordArray.length === users.length).to.be.equal(true);
+      });
+  });
+  it("CountPasswordComplexity returns most complex password when top equals 1", async function ({
+    supertest,
+  }) {
+    await supertest
+      .request("https://census-toy.nceng.net")
+      .post("/prod/toy-census")
+      .send({
+        actionType: "CountPasswordComplexity",
+        top: 1,
+        users,
+      })
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .then(function (response) {
+        let parsedResponse = JSON.parse(response.text);
+        expect(parsedResponse[0].name).to.be.equal("increasePwdComplexity1!?");
+      });
+  });
+  it("CountPasswordComplexity returns all passwords when top equals 0", async function ({
+    supertest,
+  }) {
+    await supertest
+      .request("https://census-toy.nceng.net")
+      .post("/prod/toy-census")
+      .send({
+        actionType: "CountPasswordComplexity",
+        top: 0,
+        users,
+      })
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .then(function (response) {
+        let parsedResponse = JSON.parse(response.text);
+        console.log(`parsed response obj: ${JSON.stringify(parsedResponse, null, 4)}`);
+        console.log(`parsedResponse[0]: ${JSON.stringify(parsedResponse)}`);
+        console.log(`parsedResponse[1]: ${JSON.stringify(parsedResponse[0])}`);
+        let passwordArray = [];
+        for (let i = 0; i < parsedResponse.length; i++){
+          passwordArray.push(parsedResponse[i].name);
+        }
+        expect(passwordArray.length === users.length).to.be.equal(true);
+      });
+  });
+  it("CountPasswordComplexity returns all passwords when value of top is greater than amount of users", async function ({
+    supertest,
+  }) {
+    await supertest
+      .request("https://census-toy.nceng.net")
+      .post("/prod/toy-census")
+      .send({
+        actionType: "CountPasswordComplexity",
+        top: users.length + 1,
+        users,
+      })
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .then(function (response) {
+        let parsedResponse = JSON.parse(response.text);
+        console.log(`parsed response obj: ${JSON.stringify(parsedResponse, null, 4)}`);
+        console.log(`parsedResponse[0]: ${JSON.stringify(parsedResponse)}`);
+        console.log(`parsedResponse[1]: ${JSON.stringify(parsedResponse[0])}`);
+        let passwordArray = [];
+        for (let i = 0; i < parsedResponse.length; i++){
+          passwordArray.push(parsedResponse[i].name);
+        }
+        expect(passwordArray.length === users.length).to.be.equal(true);
+      });
+  });
 });
 
 describe("testing un-happy paths", () => {
-  it("API returns an empty result when given invalid action type", async function ({
+  it("API returns an empty array when input user array is empty", async function ({
+    supertest,
+  }) {
+    await supertest
+      .request("https://census-toy.nceng.net")
+      .post("/prod/toy-census")
+      .send({
+        actionType: "CountByGender",
+        top: 0,
+        users: emptyUsers,
+      })
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .then(function (response) {
+        expect(response.text).to.be.equal("[]");
+      });
+  });
+  it("API returns an empty result when given invalid action type: CountByInvalid", async function ({
     supertest,
   }) {
     await supertest
@@ -439,7 +457,81 @@ describe("testing un-happy paths", () => {
       .expect(200)
       .expect("Content-Type", /json/)
       .then(function (response) {
-        console.log(`response:${JSON.stringify(response.text)}`)
+        expect(response.text).to.be.equal("");
+      });
+  });
+  it("API returns all results when top input is a negative integer", async function ({
+    supertest,
+  }) {
+    await supertest
+      .request("https://census-toy.nceng.net")
+      .post("/prod/toy-census")
+      .send({
+        actionType: "CountByGender",
+        top: -1,
+        users,
+      })
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .then(function (response) {
+        let parsedResponse = JSON.parse(response.text);
+        let genderArray = [];
+        for (let i = 0; i < parsedResponse.length; i++){
+          console.log(`parsedResponse element gender at ${i}: ${parsedResponse[i].name}`)
+          genderArray.push(parsedResponse[i].name);
+        }
+        expect(genderArray.includes('female')).to.be.equal(true);
+        expect(genderArray.includes('male')).to.be.equal(true);
+      });
+  });
+  it("API returns an empty result when top input is non-integer: float", async function ({
+    supertest,
+  }) {
+    await supertest
+      .request("https://census-toy.nceng.net")
+      .post("/prod/toy-census")
+      .send({
+        actionType: "CountByGender",
+        top: 1.1,
+        users,
+      })
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .then(function (response) {
+        expect(response.text).to.be.equal("");
+      });
+  });
+  it("API returns an empty result when top input is non-integer: letter", async function ({
+    supertest,
+  }) {
+    await supertest
+      .request("https://census-toy.nceng.net")
+      .post("/prod/toy-census")
+      .send({
+        actionType: "CountByGender",
+        top: "a",
+        users,
+      })
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .then(function (response) {
+        expect(response.text).to.be.equal("");
+      });
+  });
+  it("API returns an empty result when top input is non-integer: special character", async function ({
+    supertest,
+  }) {
+    await supertest
+      .request("https://census-toy.nceng.net")
+      .post("/prod/toy-census")
+      .send({
+        actionType: "CountByGender",
+        top: "?",
+        users,
+      })
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .then(function (response) {
         expect(response.text).to.be.equal("");
       });
   });

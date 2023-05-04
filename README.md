@@ -24,7 +24,7 @@ Majority of test plan involves happy path testing all 3 actionType {CountByGende
 * positive integer
 * integer greater than user list array length
 
-Additional un-happy path  testing involved sending requests with invalid parameter:
-* invalid actionType
-* top = {negative integer, non-integer such as letter or special character or float}
+Additional un-happy path testing involved sending requests with invalid parameter:
 * empty user list
+* invalid actionType
+* top = {negative integer, non-integer (float, letter, special character)}
