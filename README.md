@@ -2,16 +2,16 @@
 * Framework: Nightwatch.js
 * Reasoning: I elected to use this framework as it supports BDD test syntax for easier readability.
 Package.json should prevent any module dependency issues and allow the tests to run out the box.
-Results can be viewed locally in path: tests_output\nightwatch-html-report\index.html
 * Disclaimer: I moved the unstable test scenarios to the end of the test file due to bug reported at bottom of README.md. This is to prevent test suite from failing early and skipping stable test cases
 
 Set-up:
 1. Install git
 2. Install Node.js
 3. In a new directory, run cli command: "git clone https://github.com/tommyle153/NC_API_TEST.git"
-4. Change directory inside cloned repo
+4. Change directory inside cloned repo: cd .\NC_API_TEST\
 5. While being in same directory as package.json, run cli command: "npm install" to install dependencies listed in package.json
 6. Run cli command: "npx nightwatch --env api_testing" to kick off tests located under ./tests directory
+7. Results can be viewed locally in path: tests_output\nightwatch-html-report\index.html
 
 Test description:
 I used a hard-coded array containing 3 users with the following demographic:
