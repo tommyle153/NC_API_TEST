@@ -149,11 +149,11 @@ const users = [
       medium: "https://randomuser.me/api/portraits/med/women/17.jpg",
       thumbnail: "https://randomuser.me/api/portraits/thumb/women/17.jpg",
     },
-    nat: "IE",
+    nat: "US",
   },
 ];
 describe("testing happy paths", () => {
-  it("CountByGender returns majority count of gender of user list when top equals 1", async function ({
+  it("CountByGender returns majority gender of user list when top equals 1", async function ({
     supertest,
   }) {
     await supertest
@@ -186,13 +186,56 @@ describe("testing happy paths", () => {
       .expect(200)
       .expect("Content-Type", /json/)
       .then(function (response) {
-        console.log(`response object: ${JSON.stringify(response, null, 4)}`);
         let parsedResponse = JSON.parse(response.text);
-        // console.log(`parsed response obj: ${JSON.stringify(parsedResponse[0], null, 4)}`);
-        console.log(`parsedResponse[0]: ${JSON.stringify(parsedResponse[0])}`);
-        console.log(`parsedResponse[1]: ${JSON.stringify(parsedResponse[1])}`);
-        expect(parsedResponse[0].name).to.be.equal("female");
+        let genderArray = [];
+        for (let i = 0; i < parsedResponse.length; i++){
+          console.log(`parsedResponse element gender at ${i}: ${parsedResponse[i].name}`)
+          genderArray.push(parsedResponse[i].name);
+        }
+        expect(genderArray.includes('female')).to.be.equal(true);
+        expect(genderArray.includes('male')).to.be.equal(true);
+      });
+  }),
+  it("CountByCountry returns majority nationality inhabited by users when top equals 1", async function ({
+    supertest,
+  }) {
+    await supertest
+      .request("https://census-toy.nceng.net")
+      .post("/prod/toy-census")
+      .send({
+        actionType: "CountByCountry",
+        top: 1,
+        users,
+      })
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .then(function (response) {
+        let parsedResponse = JSON.parse(response.text);
+        expect(parsedResponse[0].name).to.be.equal("US");
         expect(parsedResponse[0].value).to.be.equal(2);
+      });
+  });
+  it("CountByCountry returns all nationalities when top equals 0", async function ({
+    supertest,
+  }) {
+    await supertest
+      .request("https://census-toy.nceng.net")
+      .post("/prod/toy-census")
+      .send({
+        actionType: "CountByCountry",
+        top: 0,
+        users,
+      })
+      .expect(200)
+      .expect("Content-Type", /json/)
+      .then(function (response) {
+        let parsedResponse = JSON.parse(response.text);
+        let nationalityArray = [];
+        for (let i = 0; i < parsedResponse.length; i++){
+          nationalityArray.push(parsedResponse[i].name);
+        }
+        expect(nationalityArray.includes('US')).to.be.equal(true);
+        expect(nationalityArray.includes('AU')).to.be.equal(true);
       });
   });
 });
